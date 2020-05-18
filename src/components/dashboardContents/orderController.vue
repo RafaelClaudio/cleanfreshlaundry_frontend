@@ -27,6 +27,9 @@
                                 <td>{{ item.status }}</td>
                                 <td>{{ item.created_at }}</td>
                                 <td class="text-center">
+                                    <v-btn icon color="primary_dark" light v-if="item.status=='Complete'" @click="printInvoice(item.id)">
+                                        <v-icon>mdi-file-download-outline</v-icon>
+                                    </v-btn>
                                     <v-btn icon color="primary_dark" light v-if="item.status=='Unprocessed'" @click="editHandler(item)">
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
@@ -316,6 +319,26 @@ export default {
             this.dialog = false,
             this.resetForm()
             this.typeInput = 'new'
+        },
+        printInvoice(id) {
+            var uri =
+            this.$apiUrl +
+            'order/printInvoice/' + id;
+            // this.$http.get(uri).then(() => {
+            //     this.snackbar = true;
+            //     this.color = 'green';
+            //     this.text = 'Berhasil';
+            //     this.load = false;
+            //   })
+            //   .catch((error) => {
+            //     this.errors = error;
+            //     this.snackbar = true;
+            //     this.text = 'Coba Lagi';
+            //     this.color = 'red';
+            //     this.load = false;
+            //   });
+            window.open(uri, '_blank');
+            console.log(id);
         },
         
     }, 
